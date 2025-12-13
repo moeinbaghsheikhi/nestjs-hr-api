@@ -25,6 +25,7 @@ async function bootstrap() {
     .setTitle('Hr API - manager routes')
     .setDescription('این روت ها مربوط به نقش کاربری مدیر هست و در پنل manager مورد استفاده قرار خواهد گرفت')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const managerDocument = SwaggerModule.createDocument(app, managerConfig, {
@@ -47,6 +48,7 @@ async function bootstrap() {
     .setTitle('Hr API - employee routes')
     .setDescription('این روت ها مربوط به نقش کاربری کارمند هست و در پنل employee مورد استفاده قرار خواهد گرفت')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const employeeDocument = SwaggerModule.createDocument(app, employeeConfig, {
