@@ -43,7 +43,7 @@ export class AuthService {
         // Access token
         const accessToken = this.jwtService.sign(payload, {
             secret: this.config.get('JWT_ACCESS_SECRET'),
-            expiresIn: this.config.get('JWT_REFRESH_SECRET') || '15m'
+            expiresIn: this.config.get('ACCESS_TOKEN_EXPIRE') || '15m'
         })
 
         
@@ -52,7 +52,7 @@ export class AuthService {
         { sub: user.id },
         {
             secret: this.config.get('JWT_REFRESH_SECRET'),
-            expiresIn: this.config.get('JWT_REFRESH_SECRET') || '14d'
+            expiresIn: this.config.get('REFRESH_TOKEN_EXPIRE') || '14d'
         })
 
         const tokenHash = await bcrypt.hash(refreshToken, 12)
@@ -98,7 +98,7 @@ export class AuthService {
                 // Access token
                 const newAccessToken = this.jwtService.sign(payload, {
                     secret: this.config.get('JWT_ACCESS_SECRET'),
-                    expiresIn: this.config.get('JWT_REFRESH_SECRET') || '15m'
+                    expiresIn: this.config.get('ACCESS_TOKEN_EXPIRE') || '15m'
                 })
 
                 
@@ -106,8 +106,8 @@ export class AuthService {
                 const newRefreshToken = this.jwtService.sign(
                     { sub: user.id },
                     {
-                        secret: this.config.get('JWT_ACCESS_SECRET'),
-                        expiresIn: this.config.get('JWT_REFRESH_SECRET') || '14d'
+                        secret: this.config.get('JWT_REFRESH_SECRET'),
+                        expiresIn: this.config.get('REFRESH_TOKEN_EXPIRE') || '14d'
                     }
                 )
 
