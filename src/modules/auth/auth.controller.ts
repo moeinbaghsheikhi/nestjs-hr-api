@@ -29,7 +29,8 @@ export class AuthController {
 
         return {
             accessToken: tokens.accessToken,
-            refreshToken: tokens.refreshToken
+            refreshToken: tokens.refreshToken,
+            role: user.role
         }
     }
 

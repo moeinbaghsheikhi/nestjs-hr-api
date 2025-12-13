@@ -48,7 +48,6 @@ export class AuthService {
             secret: this.config.get('JWT_ACCESS_SECRET'),
             expiresIn: this.config.get('ACCESS_TOKEN_EXPIRE') || '15m'
         })
-
         
         // Refresh token
         const refreshToken = this.jwtService.sign(
@@ -89,12 +88,13 @@ export class AuthService {
             .andWhere('rt.revokedAt IS NULL')
             .getMany();
 
-        if(!tokens.length) throw new BadRequestException('توکن شما معتبر نیست')
-
+        
+        let isValidRefreshToken = false
         for(const rt of tokens){
             const match = await bcrypt.compare(providedRefreshToken, rt.tokenHash)
 
             if(match){
+                isValidRefreshToken = true
                 rt.revokedAt = new Date();
                 await this.rtRepo.save(rt);
 
@@ -128,6 +128,8 @@ export class AuthService {
                 }
             }
         }
+
+        if(!isValidRefreshToken) throw new BadRequestException('توکن شما معتبر نیست')
     }
 
     async logout(userId: number){
