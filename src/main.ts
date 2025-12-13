@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { TransformResponseInterceptor } from './common/interceptors/transform-response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,6 +15,9 @@ async function bootstrap() {
 
   // enable validation global
   app.useGlobalPipes();
+
+  // Enable response transformation
+  app.useGlobalInterceptors(new TransformResponseInterceptor());
 
   // @Manager swagger
   const managerConfig = new DocumentBuilder()
