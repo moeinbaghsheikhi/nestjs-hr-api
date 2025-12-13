@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { TransformResponseInterceptor } from './common/interceptors/transform-response.interceptor';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,7 +15,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   // enable validation global
-  app.useGlobalPipes();
+  app.useGlobalPipes(new ValidationPipe());
 
   // Enable response transformation
   app.useGlobalInterceptors(new TransformResponseInterceptor());

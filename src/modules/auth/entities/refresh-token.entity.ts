@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user.entity";
 
 
@@ -10,7 +10,7 @@ export class RefreshToken {
     @Column()
     tokenHash: string;
 
-    @ManyToMany(() => User, user => user.refreshTokens)
+    @ManyToOne(() => User, user => user.refreshTokens)
     user: User;
 
     @CreateDateColumn()

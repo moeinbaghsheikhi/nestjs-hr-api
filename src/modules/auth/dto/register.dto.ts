@@ -1,17 +1,37 @@
-import { IsEmail, IsString, IsEnum, IsOptional } from 'class-validator';
+import { IsEmail, IsString, IsEnum, IsOptional, IsNotEmpty, Matches, MinLength } from 'class-validator';
 import { Role } from '../../../shared/enums/user-role.enum';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class RegisterDto {
-  @ApiProperty({ description: 'شماره موبایل', example: '09135882813'})
-  @IsString()
+  @ApiProperty({
+    description: 'شماره موبایل کاربر (باید با الگوی شماره موبایل ایرانی مطابقت داشته باشد)',
+    example: '09135882813',
+    pattern: '^09\\d{9}$',
+    minLength: 11,
+    maxLength: 11
+  })
+  @IsString({ message: 'شماره موبایل باید یک رشته متنی باشد' })
+  @IsNotEmpty({ message: 'شماره موبایل الزامی است' })
+  @Matches(/^09\d{9}$/, { message: 'شماره موبایل باید با الگوی شماره موبایل ایرانی (09xxxxxxxxx) مطابقت داشته باشد' })
   mobile: string;
 
-  @ApiProperty({ description: 'رمز عبور', example: '123456'})
-  @IsString()
+   @ApiProperty({
+    description: 'رمز عبور کاربر (حداقل 6 کاراکتر)',
+    example: '123456',
+    minLength: 6
+  })
+  @IsString({ message: 'رمز عبور باید یک رشته متنی باشد' })
+  @IsNotEmpty({ message: 'رمز عبور الزامی است' })
+  @MinLength(6, { message: 'رمز عبور باید حداقل 6 کاراکتر باشد' })
   password: string;
 
+  @ApiPropertyOptional({
+    description: 'نقش کاربری (manager یا employee)',
+    example: 'employee',
+    enum: Role,
+    enumName: 'Role'
+  })
   @IsOptional()
-  @IsEnum(Role)
+  @IsEnum(Role, { message: 'نقش کاربری باید یکی از مقادیر manager یا employee باشد' })
   role?: Role;
 }
