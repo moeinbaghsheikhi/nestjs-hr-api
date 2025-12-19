@@ -4,8 +4,8 @@ import { CreateDepartmentDto } from '../dto/create-department.dto';
 import { UpdateDepartmentDto } from '../dto/update-department.dto';
 import { Department } from '../entities/department.entity';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { Role } from 'src/shared/enums/user-role.enum';
-import { Roles } from 'src/modules/auth/decorators/roles.decorator';
+import { Role } from '../../../shared/enums/user-role.enum';
+import { Roles } from '../../../modules/auth/decorators/roles.decorator';
 
 /**
  * کنترلر ادمین برای مدیریت دپارتمان‌ها

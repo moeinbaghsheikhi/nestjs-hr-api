@@ -1,4 +1,4 @@
-import { Role } from "src/shared/enums/user-role.enum";
+import { Role } from "../../../shared/enums/user-role.enum";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { RefreshToken } from "./refresh-token.entity";
 

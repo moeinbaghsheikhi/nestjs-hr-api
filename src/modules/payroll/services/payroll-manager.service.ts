@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Payroll } from "../entities/payroll.entity";
-import { User } from "src/modules/auth/entities/user.entity";
+import { User } from "../../../modules/auth/entities/user.entity";
 import { CreatePayrollDto } from "../dto/create-payroll.dto";
 import { FilterPayrollDto } from "../dto/filter-payroll.dto";
 import { UpdatePayrollDto } from "../dto/update-payroll.dto";
